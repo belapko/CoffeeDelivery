@@ -5,6 +5,7 @@ import axios from "axios";
 import Header from "./components/Header";
 import ListProductsWithCategories from "./components/ListProductsWithCategories";
 import LoginPage from "./components/Login";
+import RegistrationPage from "./components/Registration";
 
 class App extends React.Component {
   constructor(props) {
@@ -30,28 +31,10 @@ class App extends React.Component {
     this.setState({ products: response.data });
   };
 
-  login = () => {
-    const response = axios
-      .post("http://127.0.0.1:8000/api/auth/login/", {
-        username: "user2",
-        password: "04122003",
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.status == 200) {
-          localStorage.setItem('isAuth', true);
-          localStorage.setItem('username', response.data.user.username);
-          localStorage.setItem('token', response.data.access);
-          document.location.href = '/products'
-          {console.log("redirect"); console.log(localStorage)}
-        }
-      });
-  };
 
   componentDidMount() {
     this.getCategories();
     this.getProducts();
-    // this.login();
   }
 
   render() {
@@ -69,7 +52,8 @@ class App extends React.Component {
               />
             }
           />
-          <Route path="/login" element={<LoginPage login={this.login}/>} />
+          <Route path="/login" element={<LoginPage/>} />
+          <Route path="/registration" element={<RegistrationPage/>} />
         </Routes>
       </BrowserRouter>
     );
