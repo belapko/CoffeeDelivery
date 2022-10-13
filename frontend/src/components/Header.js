@@ -46,7 +46,7 @@ const Header = () => (
               <Link className="nav-link" onClick={() => logout()}>
                 Выйти
               </Link>
-            ) : null}
+            ) : <div></div>}
           </li>
           <li className="navbar-nav my-2 my-sm-0">
             {(localStorage.isAuth && localStorage.username)? (
