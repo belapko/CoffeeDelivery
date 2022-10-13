@@ -1,16 +1,12 @@
-from django.shortcuts import render
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework import status
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
 from .models import Product, ProductCategory
 from .serializers import ProductCategorySerializer, ProductSerializer
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticated
 
 class ProductViewSet(ModelViewSet):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
+    # permission_classes = IsAuthenticated
 
     def get_queryset(self):
         queryset = Product.objects.all()
