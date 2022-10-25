@@ -2,40 +2,60 @@ import axios from "axios";
 import React from "react";
 
 const CartItem = ({ item, products }) => {
-  console.log(item);
-  console.log(products);
+  let this_item;
+  products.forEach((element) => {
+    if (element.pk == item.product_id) {
+      this_item = element;
+    }
+  });
+
   return (
     <div className="d-flex align-items-center mb-5">
       <div className="flex-shrink-0">
         <img
-          src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/13.webp"
+          src={this_item.image}
           className="img-fluid"
           style={{ width: 150 + "px" }}
-          alt="Generic placeholder image"
+          alt="Image must be here"
         />
       </div>
       <div className="flex-grow-1 ms-3">
         <a href="#!" className="float-end text-black">
           <i className="fas fa-times"></i>
         </a>
-        <h5 className="text-primary">{products[item.product_id].title}</h5>
-        <h6 style={{ color: "#9e9e9e" }}>
-          {products[item.product_id].description}
-        </h6>
+        <h5 className="text-primary">{this_item.title}</h5>
+        <h6 style={{ color: "#9e9e9e" }}>{this_item.description}</h6>
         <div className="d-flex align-items-center">
-          <p className="fw-bold mb-0 me-5 pe-3">
-            Cost: {products[item.product_id].price}$
-          </p>
+          <p className="fw-bold mb-0 me-5 pe-3">Cost: {this_item.price}$</p>
           <p className="fw-bold mb-0 me-5 pe-3">Amount: {item.quantity}</p>
+          <p className="fw-bold mb-0 me-5 pe-3">
+            <button
+              type="button"
+              className="btn btn-secondary btn-lg"
+              onClick={() => {
+                axios
+                  .delete("http://127.0.0.1:8000/api/cart/" + item.id + "/")
+                  .then(window.location.reload());
+              }}
+            >
+              Delete
+            </button>
+          </p>
         </div>
       </div>
     </div>
   );
 };
 
-const ShoppingCart = ({ cart, products }) => {
-  console.log(cart);
+function buyAll(cartArray) {
+  cartArray.forEach((elem) => {
+    axios.delete("http://127.0.0.1:8000/api/cart/" + elem.id + "/");
+  });
 
+  alert("Order created successfully");
+}
+
+const ShoppingCart = ({ cart, products }) => {
   return (
     <section className="h-100 h-custom">
       <div className="container h-100 py-5">
@@ -53,7 +73,7 @@ const ShoppingCart = ({ cart, products }) => {
                     </h3>
 
                     {cart.products?.map((item) => (
-                      <CartItem item={item} products={products} />
+                      <CartItem item={item} products={products} key={item.id} />
                     ))}
 
                     <hr className="mb-4" />
@@ -106,6 +126,7 @@ const ShoppingCart = ({ cart, products }) => {
                       <button
                         type="button"
                         className="btn btn-primary btn-block btn-lg"
+                        onClick={() => buyAll(cart.products)}
                       >
                         Buy now
                       </button>
