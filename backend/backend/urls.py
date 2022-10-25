@@ -6,11 +6,13 @@ from products.views import ProductViewSet, ProductCategoryViewSet
 from django.conf import settings
 from django.conf.urls.static import static
 from users.views import UserViewSet
+from cart.views import ShoppingCartViewSet
 
 router = DefaultRouter()
 router.register('products', ProductViewSet)
 router.register('categories', ProductCategoryViewSet)
 router.register('users', UserViewSet)
+router.register('cart', ShoppingCartViewSet)
 
 router.register('auth/login', LoginViewSet, basename='auth-login')
 router.register('auth/register', RegistrationViewSet, basename='auth-register')
