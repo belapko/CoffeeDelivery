@@ -46,10 +46,9 @@ const ProductItem = ({ product }) => {
                 onClick={() => {
                   let quantity = prompt("How much do u want?", 1)
                   axios.post("http://127.0.0.1:8000/api/cart/", {"quantity": quantity, "user": localStorage.getItem('uid'), "product": product.pk});
-                  alert("Success")
                 }}
               >
-                В корзину
+                Buy
               </button>
             </div>
             <div className="col-lg">
