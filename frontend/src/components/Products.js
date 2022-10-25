@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 const ProductItem = ({ product }) => {
   return (
@@ -40,9 +41,16 @@ const ProductItem = ({ product }) => {
 
           <div className="row">
             <div className="col-lg">
-              <a href="#" className="btn btn-dark">
+              <button
+                className="btn btn-dark"
+                onClick={() => {
+                  let quantity = prompt("How much do u want?", 1)
+                  axios.post("http://127.0.0.1:8000/api/cart/", {"quantity": quantity, "user": localStorage.getItem('uid'), "product": product.pk});
+                  alert("Success")
+                }}
+              >
                 В корзину
-              </a>
+              </button>
             </div>
             <div className="col-lg">
               <p className="text-end">{product.price} р.</p>
@@ -54,12 +62,15 @@ const ProductItem = ({ product }) => {
   );
 };
 
-const ProductsList = ({ products }) => {
+const ProductsList = ({ products, addItemInCart }) => {
   return (
     <div className="container">
       <div className="row">
         {products.map((product) => (
-          <ProductItem product={product} key={product.pk} />
+          <ProductItem
+            product={product}
+            key={product.pk}
+          />
         ))}
       </div>
     </div>

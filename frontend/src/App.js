@@ -41,6 +41,9 @@ class App extends React.Component {
   componentDidMount() {
     this.getCategories();
     this.getProducts();
+  }
+
+  componentDidUpdate() {
     this.getCartData();
   }
 
@@ -61,7 +64,7 @@ class App extends React.Component {
           />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registration" element={<RegistrationPage />} />
-          <Route path="/cart" element={<ShoppingCart cart={this.state.cart} products={this.state.products}/>} />
+          <Route path="/cart" element={<ShoppingCart cart={this.state.cart} products={this.state.products} />} />
         </Routes>
       </BrowserRouter>
     );
