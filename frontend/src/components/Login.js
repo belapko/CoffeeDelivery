@@ -11,6 +11,7 @@ const login = ({ username, password }) => {
       localStorage.setItem("isAuth", true);
       localStorage.setItem("username", response.data.user.username);
       localStorage.setItem("token", response.data.access);
+      localStorage.setItem("uid", response.data.user.id);
       document.location.href = "/products";
     })
     .catch(() => window.alert("Something went wrong!"));

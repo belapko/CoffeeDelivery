@@ -30,21 +30,24 @@ const Header = () => (
           <ul className="navbar-nav mr-auto mb-3 mb-lg-0">
             <li className="nav-item">
               <Link className="nav-link" to={"/blog"}>
-                Блог
+                Blog
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to={"/products"}>
-                Сделать заказ
+                Make an Order
               </Link>
             </li>
           </ul>
         </div>
         <ul className="navbar-nav my-2 my-lg-0">
           <li className="nav-item mr-sm-2">
+            <Link className="nav-link" to={"/cart"}>Cart</Link>
+          </li>
+          <li className="nav-item mr-sm-2">
             {localStorage.isAuth ? (
               <Link className="nav-link" onClick={() => logout()}>
-                Выйти
+                Logout
               </Link>
             ) : <div></div>}
           </li>
@@ -55,7 +58,7 @@ const Header = () => (
               </Link>
             ) : (
               <Link className="nav-link" to={"/login"}>
-                Войти
+                Login
               </Link>
             )}
           </li>
